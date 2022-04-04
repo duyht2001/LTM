@@ -17,7 +17,7 @@ public class Cilent {
 	 
 	            InputStream is = socket.getInputStream();
 	            OutputStream os = socket.getOutputStream();
-	            for (int i = '0'; i <= '10'; i++) {
+	            for (int i = '0'; i <= '9'; i++) {
 	                os.write(i); // Send each number to the server
 	                int ch = is.read(); // Waiting for results from server
 	                System.out.print((char) ch + " "); // Display the results received from the server
