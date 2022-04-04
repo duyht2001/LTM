@@ -26,9 +26,27 @@ public class Sever {
 	                    int ch = 0;
 	                    while (true) {
 	                        ch = is.read(); // Receive data from client
-	                        if (ch == -1) {
-	                            break;
-	                        }
+	                        if (ch == 1) {
+	                        	System.out.println{"one"};
+	                        } else if (ch == 2) {
+	                        	System.out.println{"two"};
+							}else if (ch == 3) {
+	                        	System.out.println{"three"};
+							}else if (ch == 4) {
+	                        	System.out.println{"four"};
+							}else if (ch == 5) {
+	                        	System.out.println{"five"};
+							}else if (ch == 6) {
+	                        	System.out.println{"six"};
+							}else if (ch == 7) {
+	                        	System.out.println{"seven"};
+							}else if (ch == 8) {
+	                        	System.out.println{"eight"};
+							}else if (ch == 9) {
+	                        	System.out.println{"nice"};
+							}else if (ch == 0) {
+	                        	System.out.println{"zero"};
+							}
 	                        os.write(ch); // Send the results to client
 	                    }
 	                    socket.close();
