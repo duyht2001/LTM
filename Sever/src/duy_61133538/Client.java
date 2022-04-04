@@ -2,7 +2,6 @@ package duy_61133538;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -10,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Cilent {
+public class Client {
 	public static void main(String[] args) {
 		try {
 			
@@ -32,7 +31,7 @@ public class Cilent {
 				buffW.flush();
 				String chuoiNhan = buffR.readLine();
 				System.out.print("Server: "+ chuoiNhan);
-				if(chuoiGui.equals("10\n")) break;
+				if(chuoiGui.equals("10")) break;
 			}
 			socket.close();
 			
@@ -40,7 +39,5 @@ public class Cilent {
 			System.out.print(e.getMessage());
 		}
 	}
-	
+
 }
-
-
