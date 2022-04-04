@@ -1,53 +1,37 @@
 package duy_61133538;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 public class Cilent {
-	Socket socketClient;
-	int id = -1;
-	
-
-	public Cilent(Socket socketClient, int id) {
-		super();
-		this.socketClient = socketClient;
-		this.id = id;
-		
-	}
-
-
-
-	@Override
-	public void run() {
-		try {
-			System.out.print(socketClient.getInetAddress().getHostAddress());
-			System.out.print(id);
-			OutputStream osToClient = socketClient.getOutputStream();	
-			OutputStreamWriter write2Client = new OutputStreamWriter(osToClient);
-			BufferedWriter buffW = new BufferedWriter(write2Client);
-		
-			InputStream in = socketClient.getInputStream();
-			InputStreamReader inReader = new InputStreamReader(in);
-			BufferedReader buffR = new BufferedReader(inReader);
-			while(true) {
-			String chuoiNhan = buffR.readLine();
-			//Gửi trả
-			String chuoiGui = chuoiNhan;
-			buffW.write(chuoiGui+"\n");
-			buffW.flush();
-			if(chuoiGui.equals("Bye")) break;
-			}
-			socketClient.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+	  public final static String SERVER_IP = "127.0.0.1";
+	    public final static int SERVER_PORT = 7;
+	 
+	    public static void main(String[] args) throws IOException, InterruptedException {
+	        Socket socket = null;
+	        try {
+	            socket = new Socket(SERVER_IP, SERVER_PORT); // Connect to server
+	            System.out.println("Connected: " + socket);
+	 
+	            InputStream is = socket.getInputStream();
+	            OutputStream os = socket.getOutputStream();
+	            for (int i = '0'; i <= '10'; i++) {
+	                os.write(i); // Send each number to the server
+	                int ch = is.read(); // Waiting for results from server
+	                System.out.print((char) ch + " "); // Display the results received from the server
+	                Thread.sleep(200);
+	            }
+	        } catch (IOException ie) {
+	            System.out.println("Can't connect to server");
+	        } finally {
+	            if (socket != null) {
+	                socket.close();
+	            }
+	        }
+	    }
 	
 }
 
-}
+
