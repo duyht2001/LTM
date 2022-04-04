@@ -9,17 +9,21 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class dichso {
+public class dichso extends Thread {
 	Socket socketClient;
 	int id = -1;
-	public dichso(Socket s, int id2) {
-		// TODO Auto-generated constructor stub
-	}
-	public void DichSo(Socket socketClient, int id) {
-		
+	
+
+	public dichso(Socket socketClient, int id) {
+		super();
 		this.socketClient = socketClient;
 		this.id = id;
+		
 	}
+
+
+
+	@Override
 	public void run() {
 		try {
 			System.out.print(socketClient.getInetAddress().getHostAddress());
