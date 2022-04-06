@@ -1,57 +1,39 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
-	Socket socketClient;
-	int id = -1;
-	public Client(Socket socketClient, int id) {
-		super();
-		this.socketClient = socketClient;
-		this.id = id;
-	}
-	void guifile(String tenFile)throws IOException{
-		FileReader fr = new FileReader(tenFile);
-		BufferedReader buffR = new BufferedReader(fr);
-		OutputStream osToClient = socketClient.getOutputStream();
-		OutputStreamWriter write2client = new OutputStreamWriter(osToClient);
-		BufferedWriter buffW = new BufferedWriter(write2client);
-		String line;
-		while((line=buffR.readLine()) != null) {
-			buffW.write(line);
-			buffW.flush();
-		}
-		fr.close();
-	}
-	public void run() {
+	public static void main(String[] args) {
 		try {
-			System.out.print(socketClient.getInetAddress().getHostAddress());
-			System.out.print(id);
 			
-			OutputStream osToClient = socketClient.getOutputStream();
-			OutputStreamWriter write2client = new OutputStreamWriter(osToClient);
-			BufferedWriter buffW = new BufferedWriter(write2client);
-			
-			InputStream in = socketClient.getInputStream();
+			Socket socket = new Socket("localhost",9999);
+			System.out.print("Conected!");
+			InputStream in = socket.getInputStream();
 			InputStreamReader inReader = new InputStreamReader(in);
 			BufferedReader buffR = new BufferedReader(inReader);
-			
+
+			OutputStream osToClient = socket.getOutputStream();	
+			OutputStreamWriter write2Client = new OutputStreamWriter(osToClient);
+			BufferedWriter buffW = new BufferedWriter(write2Client);
+
+			Scanner banPhim = new Scanner(System.in);
 			while(true) {
-				String chuoiNhan=buffR.readLine();
-				System.out.print("\n"+chuoiNhan);
-				
-				if(chuoiNhan.equals("1")) {
-					guifile("D:\\1.txt");
-				}
+				System.out.print("\nClient:");
+				String chuoiGui = banPhim.nextLine();
+				buffW.write(chuoiGui+"\n");
+				buffW.flush();
+				String chuoiNhan = buffR.readLine();
+				System.out.print("Server: "+ chuoiNhan);
+				if(chuoiGui.equals("0")) break;
 			}
+			socket.close();
 			
-		} catch (Exception e) {
+		}catch(Exception e) {
 			System.out.print(e.getMessage());
 		}
 	}

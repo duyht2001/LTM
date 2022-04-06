@@ -10,7 +10,7 @@ public class Sever {
 		int id =0;
 		while(true) {
 			Socket s = socketServer.accept();
-			LuongLamViec_DocFile luongTask = new LuongLamViec_DocFile(s, id);
+			LuongLamViec luongTask = new LuongLamViec(s, id);
 			luongTask.start();
 		}
 	}
